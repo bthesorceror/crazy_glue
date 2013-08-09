@@ -1,0 +1,22 @@
+{
+  "name": "crazy_glue",
+  "version": "0.0.0",
+  "description": "Binding all of your async calls together",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/bthesorceror/crazy_glue"
+  },
+  "keywords": [
+    "binding",
+    "async"
+  ],
+  "author": "Brandon Farmer",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/bthesorceror/crazy_glue/issues"
+  }
+}
