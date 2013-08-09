@@ -4,7 +4,7 @@
   "description": "Binding all of your async calls together",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test.js"
   },
   "repository": {
     "type": "git",
@@ -18,5 +18,8 @@
   "license": "BSD",
   "bugs": {
     "url": "https://github.com/bthesorceror/crazy_glue/issues"
+  },
+  "devDependencies": {
+    "tape": "~1.0.4"
   }
 }
