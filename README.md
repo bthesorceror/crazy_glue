@@ -3,7 +3,7 @@ Crazy Glue
 
 [![Build Status](https://travis-ci.org/bthesorceror/crazy_glue.png?branch=master)](https://travis-ci.org/bthesorceror/crazy_glue)
 
-Allows you to pull together multiple async calls together into one object literal.
+Allows you to pull together multiple async calls together.
 
 Usage
 -----
