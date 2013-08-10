@@ -14,21 +14,29 @@ var CrazyGlue = require('crazy_glue');
 
 var glue = new CrazyGlue(3);
 
-glue.set('1', 'hello');
-glue.set('2', 'world');
-glue.set('3', 'test');
+glue.ok('1', 'hello');
+glue.ok('2', 'world');
+glue.ok('3', 'test');
 
-glue.on('done', function(obj) {
-  // Do something with obj
+glue.on('done', function(errors, results) {
+  // Do something with arguments
 });
 
 ```
 
-obj will be
+results will be
 
 ```javascript
 
-{ 1: 'hello', 2: 'world', 3: 'test', errors: [] }
+{ 1: 'hello', 2: 'world', 3: 'test' }
+
+```
+
+errors will be
+
+```javascript
+
+{ }
 
 ```
 
@@ -40,20 +48,28 @@ var CrazyGlue = require('crazy_glue');
 
 var glue = new CrazyGlue(3);
 
-glue.set('1', 'hello');
-glue.skip('world failed');
-glue.skip('test failed');
+glue.ok('1', 'hello');
+glue.error('world', 'failed');
+glue.error('test', 'failed');
 
 glue.on('done', function(obj) {
-  // Do something with obj
+  // Do something with arguments
 });
 
 ```
 
-obj will be
+results will be
 
 ```javascript
 
-{ 1: 'hello', errors: ['world failed', 'test failed'] }
+{ 1: 'hello' }
+
+```
+
+errors will be
+
+```javascript
+
+{ world: 'failed', test: 'failed'}
 
 ```

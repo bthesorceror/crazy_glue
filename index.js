@@ -11,7 +11,7 @@ CrazyGlue.prototype.output = function() {
 }
 
 CrazyGlue.prototype.errors = function() {
-  this._errors = this._errors || [];
+  this._errors = this._errors || {};
   return this._errors;
 }
 
@@ -21,28 +21,23 @@ CrazyGlue.prototype.reset = function() {
   this.currentCount = 0;
 }
 
-CrazyGlue.prototype.finalOutput = function() {
-  var output = this.output();
-  output['errors'] = this.errors();
-  return output;
-}
-
 CrazyGlue.prototype.countIncrement = function() {
   this.currentCount += 1;
   if (this.currentCount == this.count) {
-    this.emit('done', this.finalOutput());
+    this.emit('done', this.errors(), this.output());
     this.reset();
   }
 }
 
-CrazyGlue.prototype.set = function(key, value) {
-  this.output()[key] = value;
+CrazyGlue.prototype.ok = function(key, val) {
+  if (key && val)
+    this.output()[key] = val;
   this.countIncrement();
 }
 
-CrazyGlue.prototype.skip = function(message) {
-  if (message)
-    this.errors().push(message);
+CrazyGlue.prototype.error = function(key, val) {
+  if (key && val)
+    this.errors()[key] = val;
   this.countIncrement();
 }
 

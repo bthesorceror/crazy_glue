@@ -4,29 +4,32 @@ var CrazyGlue = require('./index');
 (function() {
 
   tape("has correct output on 'done' event", function(t) {
-    t.plan(1);
+    t.plan(2);
 
-    glue = new CrazyGlue(2);
+    glue = new CrazyGlue(3);
 
-    glue.on('done', function(output) {
-      t.deepEqual(output, { hello: 'world', ted: 'talk', errors: [] });
+    glue.on('done', function(errors, results) {
+      t.deepEqual(results, { hello: 'world', ted: 'talk' }, 'correct results');
+      t.deepEqual(errors, {}, 'correct errors');
     });
 
-    glue.set('hello', 'world');
-    glue.set('ted', 'talk');
+    glue.ok('hello', 'world');
+    glue.ok('ted', 'talk');
+    glue.ok();
   });
 
-  tape("has correct errors on skips", function(t) {
-    t.plan(1);
+  tape("has correct errors", function(t) {
+    t.plan(2);
 
     glue = new CrazyGlue(2);
 
-    glue.on('done', function(output) {
-      t.deepEqual(output, { errors: ['1'] }, 'correct errors');
+    glue.on('done', function(errors, results) {
+      t.deepEqual(Object.keys(results), [], 'correct results');
+      t.deepEqual(errors, { key: 'error' }, 'correct errors');
     });
 
-    glue.skip('1');
-    glue.skip();
+    glue.error('key', 'error');
+    glue.error();
   });
 
   tape("reset is called when done", function(t) {
@@ -38,8 +41,8 @@ var CrazyGlue = require('./index');
       t.ok(true, 'reset function was called');
     }
 
-    glue.set('hello', 'world');
-    glue.set('ted', 'talk');
+    glue.ok('hello', 'world');
+    glue.ok('ted', 'talk');
   });
 
 })();
