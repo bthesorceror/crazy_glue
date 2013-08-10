@@ -4,13 +4,15 @@ var CrazyGlue = require('./index');
 (function() {
 
   tape("has correct output on 'done' event", function(t) {
-    t.plan(2);
+    t.plan(4);
 
     glue = new CrazyGlue(3);
 
-    glue.on('done', function(errors, results) {
+    glue.on('done', function(errors, results, stats) {
       t.deepEqual(results, { hello: 'world', ted: 'talk' }, 'correct results');
       t.deepEqual(errors, {}, 'correct errors');
+      t.equal(stats.okCount, 3);
+      t.equal(stats.errorCount, 0);
     });
 
     glue.ok('hello', 'world');
@@ -19,13 +21,15 @@ var CrazyGlue = require('./index');
   });
 
   tape("has correct errors", function(t) {
-    t.plan(2);
+    t.plan(4);
 
     glue = new CrazyGlue(2);
 
-    glue.on('done', function(errors, results) {
+    glue.on('done', function(errors, results, stats) {
       t.deepEqual(Object.keys(results), [], 'correct results');
       t.deepEqual(errors, { key: 'error' }, 'correct errors');
+      t.equal(stats.okCount, 0);
+      t.equal(stats.errorCount, 2);
     });
 
     glue.error('key', 'error');

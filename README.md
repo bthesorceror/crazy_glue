@@ -52,8 +52,45 @@ glue.ok('1', 'hello');
 glue.error('world', 'failed');
 glue.error('test', 'failed');
 
-glue.on('done', function(obj) {
+glue.on('done', function(errors, results) {
   // Do something with arguments
+});
+
+```
+
+results will be
+
+```javascript
+
+{ 1: 'hello' }
+
+```
+
+errors will be
+
+```javascript
+
+{ world: 'failed', test: 'failed'}
+
+```
+
+**With stats**
+
+```javascript
+
+var CrazyGlue = require('crazy_glue');
+
+var glue = new CrazyGlue(5);
+
+glue.ok('1', 'hello');
+glue.ok();
+glue.error('world', 'failed');
+glue.error('test', 'failed');
+glue.error();
+
+glue.on('done', function(errors, results, stats) {
+  // stats.okCount == 2
+  // stats.errorCount == 3
 });
 
 ```
