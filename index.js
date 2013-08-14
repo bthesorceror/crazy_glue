@@ -35,8 +35,10 @@ CrazyGlue.prototype.stats = function() {
 CrazyGlue.prototype.countIncrement = function() {
   this.currentCount += 1;
   if (this.currentCount == this.count) {
-    this.emit('done', this.errors(), this.output(), this.stats());
-    this.reset();
+    process.nextTick(function() {
+      this.emit('done', this.errors(), this.output(), this.stats());
+      this.reset();
+    }.bind(this));
   }
 }
 
