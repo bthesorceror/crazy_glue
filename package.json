@@ -1,6 +1,6 @@
 {
   "name": "crazy_glue",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Binding all of your async calls together",
   "main": "index.js",
   "scripts": {
