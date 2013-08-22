@@ -3,6 +3,34 @@ var CrazyGlue = require('./index');
 
 (function() {
 
+  tape("has correct output on 'done' with arrays", function(t) {
+    t.plan(1);
+
+    glue = new CrazyGlue(3);
+
+    glue.on('done', function(errors, results, stats) {
+      t.deepEqual(results, { hello: ['world', 'talk'] }, 'correct results');
+    });
+
+    glue.ok('hello', 'world');
+    glue.ok('hello', 'talk');
+    glue.ok();
+  });
+
+  tape("has correct errors on 'done' with arrays", function(t) {
+    t.plan(1);
+
+    glue = new CrazyGlue(3);
+
+    glue.on('done', function(errors, results, stats) {
+      t.deepEqual(errors, { hello: ['world', 'talk'] }, 'correct results');
+    });
+
+    glue.error('hello', 'world');
+    glue.error('hello', 'talk');
+    glue.error();
+  });
+
   tape("has correct output on 'done' event", function(t) {
     t.plan(4);
 

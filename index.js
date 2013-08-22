@@ -44,14 +44,27 @@ CrazyGlue.prototype.countIncrement = function() {
 
 CrazyGlue.prototype.ok = function(key, val) {
   if (key && val)
-    this.output()[key] = val;
+    this._handleKey(key, val, this.output());
   this._ok_count += 1;
   this.countIncrement();
 }
 
+CrazyGlue.prototype._handleKey = function(key, val, obj) {
+  if (!obj[key]) {
+    obj[key] = val;
+  } else if (typeof(obj[key]) == Array) {
+    obj[key].push(val);
+  } else {
+    var v = obj[key];
+    var result = [v];
+    result.push(val);
+    obj[key] = result;
+  }
+}
+
 CrazyGlue.prototype.error = function(key, val) {
   if (key && val)
-    this.errors()[key] = val;
+    this._handleKey(key, val, this.errors());
   this._error_count += 1;
   this.countIncrement();
 }
