@@ -19,6 +19,7 @@ var glue = new CrazyGlue(3);
 glue.ok('1', 'hello');
 glue.ok('2', 'world');
 glue.ok('3', 'test');
+glue.ok('3', 'test2');
 
 glue.on('done', function(errors, results) {
   // Do something with arguments
@@ -30,7 +31,7 @@ results will be
 
 ```javascript
 
-{ 1: 'hello', 2: 'world', 3: 'test' }
+{ 1: 'hello', 2: 'world', 3: ['test', 'test2'] }
 
 ```
 
@@ -53,6 +54,7 @@ var glue = new CrazyGlue(3);
 glue.ok('1', 'hello');
 glue.error('world', 'failed');
 glue.error('test', 'failed');
+glue.error('test', 'failed2');
 
 glue.on('done', function(errors, results) {
   // Do something with arguments
@@ -72,7 +74,7 @@ errors will be
 
 ```javascript
 
-{ world: 'failed', test: 'failed'}
+{ world: 'failed', test: ['failed', 'failed2']}
 
 ```
 
